@@ -1,0 +1,231 @@
+/* ==========================================================================
+   SYLOOW ART - REBUILT FROM SCRATCH
+   Pure CSS3 + Tailwind CDN Extension
+   Strict Design: Anti-Dashboard, Zero Overlap, Spacious Breathing Room
+   ========================================================================== */
+
+/* 1. CSS Custom Properties */
+:root {
+  --bg-main: #0d0f0c;
+  --bg-card: #151813;
+  --bg-subtle: #090b08;
+  --border-card: rgba(255, 255, 255, 0.08);
+  --color-accent: #9be12f;
+  --color-accent-hover: #b1ee4c;
+  --text-main: #f4f6f2;
+  --text-muted: #a1a79d;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* 2. Base Typography & Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* 3. Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #20241d;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* 4. Responsive Grid / Masonry Columns (Preserves 100% Proportions Without Crop) */
+.gallery-columns {
+  column-count: 1;
+  column-gap: 1.75rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .gallery-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-columns {
+    column-count: 3;
+  }
+}
+
+.gallery-card {
+  break-inside: avoid;
+  margin-bottom: 1.75rem;
+  display: inline-block;
+  width: 100%;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 5. Clean Filter Buttons */
+.filter-btn {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: rgba(155, 225, 47, 0.4);
+  color: var(--text-main);
+}
+
+.filter-btn.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0d0f0c;
+  font-weight: 700;
+}
+
+/* 6. Clean Accordion Styling */
+.accordion-header {
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-header:hover {
+  border-color: rgba(155, 225, 47, 0.4);
+}
+
+.accordion-header[aria-expanded="true"] {
+  border-color: rgba(155, 225, 47, 0.5);
+  color: var(--color-accent);
+}
+
+.accordion-header[aria-expanded="true"] .accordion-icon {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+.accordion-content {
+  background-color: #11140f;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: none;
+}
+
+/* 7. Lightbox Modal States */
+#lightbox-modal.active {
+  display: flex !important;
+  opacity: 1 !important;
+}
+
+#lightbox-modal.active #lightbox-panel {
+  transform: scale(1) !important;
+}
+
+/* 8. Toast Feedback Animation */
+#toast.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 9. Light Mode Clean Adaptation */
+html.light {
+  --bg-main: #f8faf7;
+  --bg-card: #ffffff;
+  --bg-subtle: #f0f4ee;
+  --border-card: #e2e6de;
+  --text-main: #121510;
+  --text-muted: #586053;
+  --color-accent: #78b81b;
+  --color-accent-hover: #659e14;
+}
+
+html.light body {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+html.light header {
+  background-color: rgba(248, 250, 247, 0.92) !important;
+  border-color: #e2e6de !important;
+}
+
+html.light .bg-\[\#151813\] {
+  background-color: #ffffff !important;
+  border-color: #e2e6de !important;
+}
+
+html.light .bg-\[\#0d0f0c\] {
+  background-color: #f1f5ee !important;
+}
+
+html.light .text-\[\#a1a79d\] {
+  color: #586053 !important;
+}
+
+html.light .text-\[\#f4f6f2\] {
+  color: #121510 !important;
+}
+
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/10 {
+  border-color: #e2e6de !important;
+}
+
+html.light .filter-btn {
+  background-color: #ffffff;
+  border-color: #e2e6de;
+  color: #586053;
+}
+
+html.light .filter-btn.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+html.light .accordion-content {
+  background-color: #f8faf7;
+  border-color: #e2e6de;
+}
+
+html.light footer {
+  background-color: #eff3ec !important;
+  border-color: #e2e6de !important;
+}
+
+html.light #toast {
+  background-color: #ffffff !important;
+  color: #121510 !important;
+  border-color: #78b81b !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 10. Focus Rings for Accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syloow — Digital Artist & Emergency Commissions ($15-$20 USD)</title>
+  <meta name="description" content="Portfolio & Emergency Commissions for digital illustrator Syloow. Character design, OCs, fanarts, YCH and expressive illustrations. Rates: $15 - $20 USD.">
+  <meta name="author" content="Syloow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Syloow — Digital Artist & Emergency Commissions">
+  <meta property="og:description" content="Character design, OCs, fanarts, YCH and expressive illustrations. Emergency slots open in USD!">
+  <meta property="og:image" content="WhatsApp Image 2026-11-20 at 12.13.27 (1).jpeg">
+
+  <link rel="icon" type="image/jpeg" href="WhatsApp Image 2026-11-20 at 12.13.27 (1).jpeg">
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              lime: '#9be12f',
+              limeHover: '#b1ee4c',
+              darkBg: '#0d0f0c',
+              darkCard: '#151813',
+              darkBorder: 'rgba(255, 255, 255, 0.08)',
+              textMuted: '#a1a79d',
+              textMain: '#f4f6f2'
+            }
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#0d0f0c] text-[#f4f6f2] font-sans antialiased min-h-screen flex flex-col selection:bg-[#9be12f] selection:text-[#0d0f0c]">
+
+  <!-- Floating Toast Notification for Copy Feedback -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 ease-out flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[#151813] text-[#f4f6f2] border border-[#9be12f]/40 shadow-2xl backdrop-blur-md">
+    <div class="w-8 h-8 rounded-lg bg-[#9be12f]/20 text-[#9be12f] flex items-center justify-center flex-shrink-0">
+      <i data-lucide="check" class="w-4 h-4"></i>
+    </div>
+    <div>
+      <p id="toast-title" class="font-heading font-semibold text-sm text-[#9be12f]">Copied to clipboard!</p>
+      <p id="toast-desc" class="text-xs text-[#a1a79d]">Ready to paste.</p>
+    </div>
+  </div>
+
+  <!-- CLEAN STICKY NAVBAR (Single line, no wrapping) -->
+  <header class="sticky top-0 z-40 w-full bg-[#0d0f0c]/90 backdrop-blur-md border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo & Name -->
+      <a href="#" class="flex items-center gap-3 flex-shrink-0 group">
+        <img src="WhatsApp Image 2026-11-20 at 12.13.27 (1).jpeg" alt="Syloow" class="w-10 h-10 rounded-full object-cover border border-white/10 group-hover:border-[#9be12f]/60 transition-colors">
+        <span class="font-heading font-bold text-xl text-[#f4f6f2] tracking-wide">SYLOOW</span>
+      </a>
+
+      <!-- 4 Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#gallery" class="text-sm font-medium text-[#a1a79d] hover:text-[#9be12f] transition-colors" data-i18n="nav.gallery">Gallery</a>
+        <a href="#pricing" class="text-sm font-medium text-[#a1a79d] hover:text-[#9be12f] transition-colors" data-i18n="nav.pricing">Pricing</a>
+        <a href="#how-it-works" class="text-sm font-medium text-[#a1a79d] hover:text-[#9be12f] transition-colors" data-i18n="nav.howItWorks">How It Works</a>
+        <a href="#contact" class="text-sm font-medium text-[#a1a79d] hover:text-[#9be12f] transition-colors" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <!-- Right Header Actions (Language, Theme, 1 Action Button) -->
+      <div class="hidden md:flex items-center gap-3.5 flex-shrink-0">
+        <!-- Language Switcher (EN / PT) -->
+        <button id="lang-toggle-btn" class="px-3.5 py-2 rounded-xl bg-[#151813] hover:bg-[#1c201a] border border-white/[0.08] text-xs font-semibold text-[#f4f6f2] transition-colors flex items-center gap-2" title="Toggle Language (EN / PT)">
+          <i data-lucide="globe" class="w-4 h-4 text-[#9be12f]"></i>
+          <span id="current-lang-text">EN</span>
+        </button>
+
+        <!-- Discreet Dark/Light Mode Toggle -->
+        <button id="theme-toggle-btn" class="p-2 rounded-xl bg-[#151813] hover:bg-[#1c201a] text-[#a1a79d] hover:text-[#9be12f] border border-white/[0.08] transition-colors" title="Toggle Theme">
+          <i data-lucide="sun" id="theme-icon" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Primary Action Button: Order Art -->
+        <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-[#9be12f] hover:bg-[#b1ee4c] text-[#0d0f0c] font-heading font-bold text-sm transition-colors flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-[#0d0f0c]"></i>
+          <span data-i18n="nav.orderCta">Order Art</span>
+        </a>
+      </div>
+
+      <!-- Mobile Controls -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button id="mobile-lang-btn" class="px-3 py-1.5 rounded-lg bg-[#151813] text-xs font-semibold text-[#9be12f] border border-white/[0.08]">
+          <span id="mobile-current-lang">EN</span>
+        </button>
+        <button id="mobile-theme-btn" class="p-2 rounded-lg bg-[#151813] text-[#a1a79d] border border-white/[0.08]">
+          <i data-lucide="sun" class="w-4 h-4"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg bg-[#151813] text-[#f4f6f2] border border-white/[0.08]" aria-label="Toggle Menu">
+          <i data-lucide="menu" id="mobile-menu-icon" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pt-3 pb-6 bg-[#0d0f0c] border-b border-white/[0.08]">
+      <div class="flex flex-col gap-3">
+        <a href="#gallery" class="mobile-nav-link py-2.5 text-[#a1a79d] hover:text-[#9be12f] font-medium" data-i18n="nav.gallery">Gallery</a>
+        <a href="#pricing" class="mobile-nav-link py-2.5 text-[#a1a79d] hover:text-[#9be12f] font-medium" data-i18n="nav.pricing">Pricing</a>
+        <a href="#how-it-works" class="mobile-nav-link py-2.5 text-[#a1a79d] hover:text-[#9be12f] font-medium" data-i18n="nav.howItWorks">How It Works</a>
+        <a href="#contact" class="mobile-nav-link py-2.5 text-[#a1a79d] hover:text-[#9be12f] font-medium" data-i18n="nav.contact">Contact</a>
+        <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="mt-2 w-full py-3 rounded-xl bg-[#9be12f] text-[#0d0f0c] font-heading font-bold text-center flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-[#0d0f0c]"></i>
+          <span data-i18n="nav.orderCta">Order Art on Discord</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+
+    <!-- HERO SECTION (SIMPLE & DIRECT, ZERO OVERLAP, AT MOST 2 BUTTONS) -->
+    <section class="py-16 md:py-24 max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left: Text & Dual Actions -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- 1 Status Badge -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#151813] border border-[#9be12f]/40 text-[#9be12f] text-xs font-semibold tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-[#9be12f] animate-pulse"></span>
+            <span class="font-heading" data-i18n="hero.badge">EMERGENCY COMMISSIONS OPEN</span>
+          </div>
+
+          <!-- 1 Main Title -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-[#f4f6f2] leading-tight" data-i18n="hero.title">
+            Expressive Character Art, OCs & Fanarts by Syloow
+          </h1>
+
+          <!-- 1 Short Bio (up to 2 lines) -->
+          <p class="text-base sm:text-lg text-[#a1a79d] leading-relaxed max-w-2xl" data-i18n="hero.bio">
+            Digital illustrator focused on character design, OCs, fanarts, YCH and expressive illustrations. Emergency slots open in USD ($15 - $20).
+          </p>
+
+          <!-- Exactly 2 Buttons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            <!-- Button 1: Order on Discord -->
+            <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="px-7 py-3.5 rounded-xl bg-[#9be12f] hover:bg-[#b1ee4c] text-[#0d0f0c] font-heading font-bold text-base transition-colors flex items-center justify-center gap-2.5">
+              <i data-lucide="message-circle" class="w-5 h-5 fill-[#0d0f0c]"></i>
+              <span data-i18n="hero.ctaDiscord">Order on Discord</span>
+            </a>
+
+            <!-- Button 2: See Prices -->
+            <a href="#pricing" class="px-7 py-3.5 rounded-xl bg-[#151813] hover:bg-[#1c201a] border border-white/[0.08] hover:border-white/20 text-[#f4f6f2] font-heading font-semibold text-base transition-colors flex items-center justify-center gap-2">
+              <span data-i18n="hero.ctaPricing">See Prices ($15 - $20)</span>
+              <i data-lucide="arrow-down" class="w-4 h-4 text-[#9be12f]"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right: Single Featured Artwork (Syloow's Real Art, Caption STRICTLY BELOW) -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border border-white/[0.08] bg-[#151813] p-4">
+            <div class="rounded-xl overflow-hidden aspect-square bg-[#0d0f0c]">
+              <img src="WhatsApp Image 2026-11-20 at 12.13.27 (1).jpeg" alt="Featured Art by Syloow" class="w-full h-full object-cover">
+            </div>
+            <!-- Clean Caption Strictly Below the Image (Zero Overlap) -->
+            <div class="mt-4 px-2 flex items-center justify-between text-sm">
+              <div>
+                <h4 class="font-heading font-bold text-[#f4f6f2]">Character Portrait & Lighting</h4>
+                <p class="text-xs text-[#a1a79d]" data-i18n="hero.featuredSub">Original Digital Artwork by Syloow</p>
+              </div>
+              <span class="font-heading font-bold text-[#9be12f] text-base">$15 - $20 USD</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GALLERY SECTION (RESPONSIVE GRID, ZERO IMAGE OVERLAYS) -->
+    <section id="gallery" class="py-20 border-t border-white/[0.08]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-[#f4f6f2] leading-tight" data-i18n="gallery.title">
+            Portfolio & Recent Works
+          </h2>
+          <p class="mt-3 text-base text-[#a1a79d] leading-relaxed" data-i18n="gallery.subtitle">
+            Browse through icons, full character illustrations, sketches and WIPs. Click any piece for full preview.
+          </p>
+        </div>
+
+        <!-- Clean Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-14" id="gallery-filters">
+          <button class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-semibold" data-filter="all">
+            <span data-i18n="filters.all">All Works</span>
+          </button>
+          <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold" data-filter="icons">
+            <span data-i18n="filters.icons">Icons & Busts</span>
+          </button>
+          <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold" data-filter="characters">
+            <span data-i18n="filters.characters">Characters</span>
+          </button>
+          <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold" data-filter="sketches">
+            <span data-i18n="filters.sketches">Sketches & WIP</span>
+          </button>
+        </div>
+
+        <!-- Masonry / Responsive Grid Container -->
+        <div id="gallery-grid" class="gallery-columns">
+          <!-- Populated dynamically by script.js with Syloow's real files -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRICING SECTION (USD EMERGENCY COMMISSION TIERS) -->
+    <section id="pricing" class="py-24 border-t border-white/[0.08]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-[#f4f6f2] leading-tight" data-i18n="pricing.title">
+            Emergency Commission Rates (USD)
+          </h2>
+          <p class="mt-3 text-base text-[#a1a79d] leading-relaxed" data-i18n="pricing.subtitle">
+            Clear deliverables and fast emergency turnaround. Direct contact and reference intake on Discord.
+          </p>
+        </div>
+
+        <!-- Side-by-Side Cards (Spacious p-8 padding) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+          
+          <!-- TIER 1: $15 USD Standard -->
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-heading font-bold text-[#a1a79d] uppercase tracking-wider" data-i18n="tier1.badge">Standard Tier</span>
+                <span class="text-xs text-[#a1a79d]">~24h - 48h avg</span>
+              </div>
+              
+              <h3 class="text-2xl font-heading font-bold text-[#f4f6f2]" data-i18n="tier1.title">Icon / Bust / YCH / Sketch</h3>
+              <p class="mt-3 text-sm text-[#a1a79d] leading-relaxed" data-i18n="tier1.desc">
+                Clean and expressive color bust/icon, Your Character Here (YCH), or polished sketch in Syloow's signature art style.
+              </p>
+
+              <!-- Price Display -->
+              <div class="my-6 py-4 border-y border-white/[0.08] flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-heading font-bold text-[#f4f6f2]">$15</span>
+                <span class="text-[#a1a79d] font-semibold text-base">USD</span>
+              </div>
+
+              <!-- Feature List -->
+              <ul class="space-y-4 text-sm text-[#f4f6f2]">
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier1.feat1"><strong>Clean lineart</strong> & stylized shading / base palette</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier1.feat2"><strong>High-resolution</strong> PNG file (300 DPI ready for avatars)</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier1.feat3">Bust, portrait, chosen YCH pose or clean sketch</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier1.feat4">1 Free sketch revision before final coloring</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Card CTA -->
+            <div class="mt-8 pt-4">
+              <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-6 rounded-xl bg-[#1c201a] hover:bg-[#232920] text-[#f4f6f2] font-heading font-bold text-sm text-center flex items-center justify-center gap-2 border border-white/[0.08] transition-colors">
+                <i data-lucide="message-circle" class="w-4 h-4 text-[#9be12f]"></i>
+                <span data-i18n="tier1.cta">Order $15 Tier on Discord</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- TIER 2: $20 USD Complete Pack -->
+          <div class="rounded-2xl bg-[#151813] border-2 border-[#9be12f] p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9be12f]/15 text-[#9be12f] text-xs font-heading font-bold uppercase tracking-wider" data-i18n="tier2.highlight">
+                  Most Popular • Best Value
+                </span>
+                <span class="text-xs text-[#9be12f] font-medium">~24h - 72h priority</span>
+              </div>
+              
+              <h3 class="text-2xl font-heading font-bold text-[#f4f6f2]" data-i18n="tier2.title">Complete Pack (+ Sticker / Extra)</h3>
+              <p class="mt-3 text-sm text-[#a1a79d] leading-relaxed" data-i18n="tier2.desc">
+                Everything in the $15 USD option accompanied by an exclusive custom sticker (or stylized chibi/fullbody extra).
+              </p>
+
+              <!-- Price Display -->
+              <div class="my-6 py-4 border-y border-white/[0.08] flex items-baseline gap-2">
+                <span class="text-4xl sm:text-5xl font-heading font-bold text-[#9be12f]">$20</span>
+                <span class="text-[#a1a79d] font-semibold text-base">USD</span>
+                <span class="text-xs text-[#9be12f] ml-auto font-medium">+$5 for extra sticker</span>
+              </div>
+
+              <!-- Feature List -->
+              <ul class="space-y-4 text-sm text-[#f4f6f2]">
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier2.feat1"><strong>All deliverables</strong> included in the $15 USD tier</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier2.feat2"><strong>+1 Exclusive Custom Sticker</strong> (Transparent PNG ready for Discord/Telegram)</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier2.feat3">Or upgrade to a <strong>Chibi / Fullbody stylized</strong> version</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier2.feat4">High-Res master files + transparent export</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check" class="w-4 h-4 text-[#9be12f] flex-shrink-0 mt-1"></i>
+                  <span data-i18n="tier2.feat5">Priority queue for emergency turnaround</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Card CTA -->
+            <div class="mt-8 pt-4">
+              <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-6 rounded-xl bg-[#9be12f] hover:bg-[#b1ee4c] text-[#0d0f0c] font-heading font-bold text-sm text-center flex items-center justify-center gap-2 transition-colors">
+                <i data-lucide="message-circle" class="w-4 h-4 fill-[#0d0f0c]"></i>
+                <span data-i18n="tier2.cta">Order Complete Pack ($20 USD)</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Clean Payment Note -->
+        <p class="mt-12 text-center text-sm text-[#a1a79d]" data-i18n="pricing.note">
+          Payments accepted in USD via PayPal, Ko-fi or VGen. Reference sheet intake and final details closed directly via Discord (@sylomeann).
+        </p>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS & TERMS SECTION -->
+    <section id="how-it-works" class="py-20 border-t border-white/[0.08]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-[#f4f6f2] leading-tight" data-i18n="process.title">
+            How It Works & Terms of Service
+          </h2>
+          <p class="mt-3 text-base text-[#a1a79d] leading-relaxed" data-i18n="process.subtitle">
+            Simple 4-step workflow designed for rapid delivery and clear expectations.
+          </p>
+        </div>
+
+        <!-- 4-Step Linear Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-6 space-y-3">
+            <span class="text-xs font-heading font-bold text-[#9be12f]">STEP 01</span>
+            <h4 class="font-heading font-bold text-[#f4f6f2] text-lg" data-i18n="step1.title">Contact & References</h4>
+            <p class="text-sm text-[#a1a79d] leading-relaxed" data-i18n="step1.desc">
+              Message Syloow on Discord (@sylomeann) or E-mail with character ref sheet, chosen tier ($15 or $20) and any pose preferences.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-6 space-y-3">
+            <span class="text-xs font-heading font-bold text-[#9be12f]">STEP 02</span>
+            <h4 class="font-heading font-bold text-[#f4f6f2] text-lg" data-i18n="step2.title">USD Payment</h4>
+            <p class="text-sm text-[#a1a79d] leading-relaxed" data-i18n="step2.desc">
+              Slot is secured once upfront payment in USD is completed (via PayPal, Ko-fi or VGen). Work starts immediately.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-6 space-y-3">
+            <span class="text-xs font-heading font-bold text-[#9be12f]">STEP 03</span>
+            <h4 class="font-heading font-bold text-[#f4f6f2] text-lg" data-i18n="step3.title">Sketch & Approval</h4>
+            <p class="text-sm text-[#a1a79d] leading-relaxed" data-i18n="step3.desc">
+              You receive an initial sketch/draft for review. Adjustments can be made freely at this phase before final lineart and coloring.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-6 space-y-3">
+            <span class="text-xs font-heading font-bold text-[#9be12f]">STEP 04</span>
+            <h4 class="font-heading font-bold text-[#f4f6f2] text-lg" data-i18n="step4.title">Final Delivery</h4>
+            <p class="text-sm text-[#a1a79d] leading-relaxed" data-i18n="step4.desc">
+              Delivery of master high-resolution PNGs (plus transparent sticker files) via Discord DM or high-speed cloud drive link.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Terms Accordion (Generous p-6 padding) -->
+        <div class="max-w-3xl mx-auto space-y-4" id="tos-accordion">
+          
+          <!-- Accordion 1: Do's & Don'ts -->
+          <div class="rounded-2xl overflow-hidden">
+            <button class="accordion-header w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-heading font-bold text-base text-[#f4f6f2] rounded-2xl">
+              <span data-i18n="accordion.dosDontsTitle">What I Draw / What I Don't Draw (Do's & Don'ts)</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-[#a1a79d] transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-content hidden px-6 py-6 text-sm text-[#a1a79d] leading-relaxed space-y-4 rounded-b-2xl">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <h5 class="font-heading font-bold text-[#9be12f] mb-2" data-i18n="accordion.willDraw">Will Draw:</h5>
+                  <ul class="space-y-1.5 text-xs text-[#f4f6f2]" data-i18n="accordion.willDrawList">
+                    <li>• Original Characters (OCs) & Furry / Anthro</li>
+                    <li>• Humans, Humanoids & Kemonomimi</li>
+                    <li>• Fanarts (Anime, Games, Cartoons)</li>
+                    <li>• YCH poses & Expressive Chibis/Stickers</li>
+                    <li>• Sketches, WIPs & Gore/Blood (Soft)</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 class="font-heading font-bold text-[#f4f6f2] mb-2" data-i18n="accordion.wontDraw">Won't Draw:</h5>
+                  <ul class="space-y-1.5 text-xs text-[#a1a79d]" data-i18n="accordion.wontDrawList">
+                    <li>• Heavy Mecha / Complex machinery</li>
+                    <li>• Hyper-realism</li>
+                    <li>• Hate speech, offensive or illegal themes</li>
+                    <li>• Complex architectural backgrounds in $15-$20 slots</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 2: Turnaround -->
+          <div class="rounded-2xl overflow-hidden">
+            <button class="accordion-header w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-heading font-bold text-base text-[#f4f6f2] rounded-2xl">
+              <span data-i18n="accordion.turnaroundTitle">Turnaround Time & Emergency Delivery</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-[#a1a79d] transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-content hidden px-6 py-6 text-sm text-[#a1a79d] leading-relaxed space-y-2 rounded-b-2xl" data-i18n="accordion.turnaroundBody">
+              <p>Due to the emergency nature of these slots, standard turnaround is <strong>24 to 72 hours</strong> upon payment confirmation and reference approval.</p>
+              <p>In case of any unexpected delay, you will be notified immediately via Discord.</p>
+            </div>
+          </div>
+
+          <!-- Accordion 3: Revisions & Usage -->
+          <div class="rounded-2xl overflow-hidden">
+            <button class="accordion-header w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-heading font-bold text-base text-[#f4f6f2] rounded-2xl">
+              <span data-i18n="accordion.revisionsTitle">Revisions, Refunds & Usage Rights</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-[#a1a79d] transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-content hidden px-6 py-6 text-sm text-[#a1a79d] leading-relaxed space-y-2 rounded-b-2xl" data-i18n="accordion.revisionsBody">
+              <p><strong>Revisions:</strong> 1 free revision is included during the rough sketch phase. Color adjustments after lineart completion are free. Major pose overhauls after sketch approval may incur a small fee.</p>
+              <p><strong>Usage:</strong> For personal use, profile pictures, streaming avatars (Twitch/Discord), and personal sticker printing. Syloow reserves rights to showcase completed art in portfolios (watermarked).</p>
+              <p><strong>Refunds:</strong> Full refund if work has not started. Partial refund depending on work completed.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT & CONVERSION SECTION (DIRECT & SPACIOUS) -->
+    <section id="contact" class="py-24 border-t border-white/[0.08]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-[#f4f6f2] leading-tight" data-i18n="contact.title">
+            Ready to Order? Get In Touch
+          </h2>
+          <p class="mt-3 text-base text-[#a1a79d] leading-relaxed" data-i18n="contact.subtitle">
+            Emergency slots are filled on a first-come, first-served basis. Choose your preferred channel:
+          </p>
+        </div>
+
+        <!-- 2 Primary Contact Conversion Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          
+          <!-- DISCORD CARD -->
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-heading font-bold text-[#9be12f] uppercase tracking-wider" data-i18n="contact.discordFast">Fastest Reply</span>
+                <span class="text-xs text-[#a1a79d]">Primary</span>
+              </div>
+              
+              <h3 class="text-2xl font-heading font-bold text-[#f4f6f2]">Discord</h3>
+              <p class="mt-2 text-sm text-[#a1a79d] leading-relaxed" data-i18n="contact.discordDesc">
+                Open Syloow's profile directly or copy the tag to send a message.
+              </p>
+
+              <!-- Tag Block -->
+              <div class="mt-6 p-4 rounded-xl bg-[#0d0f0c] border border-white/[0.06] flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-[#a1a79d] block">Username</span>
+                  <span class="font-mono text-base font-semibold text-[#9be12f]">@sylomeann</span>
+                </div>
+                <button onclick="copyToClipboard('@sylomeann', 'Discord tag @sylomeann copied!')" class="p-2.5 rounded-lg bg-[#151813] hover:bg-[#1c201a] text-[#f4f6f2] hover:text-[#9be12f] transition-colors" title="Copy Tag">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Discord CTAs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
+              <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="py-3 px-4 rounded-xl bg-[#9be12f] hover:bg-[#b1ee4c] text-[#0d0f0c] font-heading font-bold text-sm text-center flex items-center justify-center gap-2 transition-colors">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                <span data-i18n="contact.openDiscord">Open Profile</span>
+              </a>
+              <button onclick="copyToClipboard('@sylomeann', 'Discord tag @sylomeann copied!')" class="py-3 px-4 rounded-xl bg-[#1c201a] hover:bg-[#232920] text-[#f4f6f2] font-heading font-semibold text-sm flex items-center justify-center gap-2 border border-white/[0.08] transition-colors">
+                <i data-lucide="copy" class="w-4 h-4 text-[#9be12f]"></i>
+                <span data-i18n="contact.copyDiscord">Copy Tag</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- EMAIL CARD -->
+          <div class="rounded-2xl bg-[#151813] border border-white/[0.08] p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-heading font-bold text-[#a1a79d] uppercase tracking-wider" data-i18n="contact.emailLabel">Direct Mail</span>
+                <span class="text-xs text-[#a1a79d]">Inquiries</span>
+              </div>
+              
+              <h3 class="text-2xl font-heading font-bold text-[#f4f6f2]">E-mail</h3>
+              <p class="mt-2 text-sm text-[#a1a79d] leading-relaxed" data-i18n="contact.emailDesc">
+                Send your character references, tier selection and details directly to Syloow's inbox.
+              </p>
+
+              <!-- Email Block -->
+              <div class="mt-6 p-4 rounded-xl bg-[#0d0f0c] border border-white/[0.06] flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-[#a1a79d] block">Email Address</span>
+                  <span class="font-mono text-sm sm:text-base font-semibold text-[#f4f6f2]">alterport123@gmail.com</span>
+                </div>
+                <button onclick="copyToClipboard('alterport123@gmail.com', 'Email alterport123@gmail.com copied!')" class="p-2.5 rounded-lg bg-[#151813] hover:bg-[#1c201a] text-[#f4f6f2] hover:text-[#9be12f] transition-colors flex-shrink-0" title="Copy Email">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Email CTAs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
+              <a href="mailto:alterport123@gmail.com?subject=Commission%20Inquiry%20-%20Syloow" class="py-3 px-4 rounded-xl bg-[#1c201a] hover:bg-[#232920] text-[#f4f6f2] font-heading font-bold text-sm text-center flex items-center justify-center gap-2 border border-white/[0.08] transition-colors">
+                <i data-lucide="send" class="w-4 h-4 text-[#9be12f]"></i>
+                <span data-i18n="contact.sendEmail">Send Email</span>
+              </a>
+              <button onclick="copyToClipboard('alterport123@gmail.com', 'Email alterport123@gmail.com copied!')" class="py-3 px-4 rounded-xl bg-[#151813] hover:bg-[#1c201a] text-[#a1a79d] hover:text-[#f4f6f2] font-heading font-semibold text-sm flex items-center justify-center gap-2 border border-white/[0.08] transition-colors">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+                <span data-i18n="contact.copyEmail">Copy Email</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Social Media Links (Placeholders for other networks) -->
+        <div class="mt-16 text-center">
+          <p class="text-xs uppercase tracking-widest text-[#a1a79d] font-semibold mb-4" data-i18n="contact.otherNetworks">
+            Find Syloow Across Other Platforms
+          </p>
+          <div class="flex items-center justify-center gap-4 flex-wrap" id="social-links-container">
+            <!-- Populated via script.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL (ZERO OVERLAP, GENEROUS BREATHING ROOM) -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-[#0d0f0c]/95 backdrop-blur-md opacity-0 transition-opacity duration-200" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row bg-[#151813] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl scale-95 transition-transform duration-200" id="lightbox-panel">
+      
+      <!-- Close Button -->
+      <button id="modal-close-btn" class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-[#0d0f0c]/80 hover:bg-[#9be12f] hover:text-[#0d0f0c] text-[#f4f6f2] transition-colors" aria-label="Close modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Clean Image (Zero text inside or over image) -->
+      <div class="w-full md:w-3/5 bg-[#0d0f0c] flex items-center justify-center p-6">
+        <img id="modal-img" src="" alt="Enlarged Artwork" class="max-h-[55vh] md:max-h-[75vh] w-auto max-w-full object-contain rounded-xl">
+      </div>
+
+      <!-- Information Below/Beside Image (p-8 padding) -->
+      <div class="w-full md:w-2/5 p-6 md:p-8 flex flex-col justify-between bg-[#151813] border-t md:border-t-0 md:border-l border-white/[0.08]">
+        <div class="space-y-4">
+          <span class="inline-block text-xs font-heading font-bold text-[#9be12f] uppercase tracking-wider" id="modal-category">
+            Category
+          </span>
+          <h3 id="modal-title" class="text-2xl font-heading font-bold text-[#f4f6f2] leading-tight">Artwork Title</h3>
+          <p id="modal-desc" class="text-sm text-[#a1a79d] leading-relaxed">Artwork details and specifications.</p>
+          
+          <div class="p-4 rounded-xl bg-[#0d0f0c] border border-white/[0.06] space-y-2 text-xs">
+            <div class="flex justify-between text-[#a1a79d]">
+              <span data-i18n="modal.tierLabel">Applicable Tier:</span>
+              <span id="modal-tier" class="font-heading font-semibold text-[#9be12f]">$15 USD</span>
+            </div>
+            <div class="flex justify-between text-[#a1a79d]">
+              <span data-i18n="modal.turnaroundLabel">Est. Turnaround:</span>
+              <span id="modal-time" class="text-[#f4f6f2]">24-48 Hours</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-white/[0.08] space-y-3">
+          <a href="https://discord.com/users/474736630805299211" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-xl bg-[#9be12f] hover:bg-[#b1ee4c] text-[#0d0f0c] font-heading font-bold text-sm text-center flex items-center justify-center gap-2 transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-[#0d0f0c]"></i>
+            <span data-i18n="modal.orderSimilar">Order on Discord</span>
+          </a>
+          <p class="text-center text-xs text-[#a1a79d]">
+            Press <kbd class="px-1.5 py-0.5 rounded bg-[#0d0f0c] text-[#f4f6f2] font-mono text-xs">ESC</kbd> to close
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MINIMALIST FOOTER -->
+  <footer class="bg-[#090b08] border-t border-white/[0.06] py-10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="WhatsApp Image 2026-11-20 at 12.13.27 (1).jpeg" alt="Syloow" class="w-8 h-8 rounded-full object-cover border border-white/10">
+        <div>
+          <span class="font-heading font-bold text-[#f4f6f2] text-sm">SYLOOW</span>
+          <span class="text-xs text-[#a1a79d] block">© <span id="current-year">2026</span> Syloow. All rights reserved.</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs text-[#a1a79d]">
+        <span class="w-2 h-2 rounded-full bg-[#9be12f] animate-pulse"></span>
+        <span data-i18n="footer.status">Emergency Slots Active • Payments in USD</span>
+      </div>
+
+      <a href="#" class="px-3.5 py-2 rounded-xl bg-[#151813] hover:bg-[#1c201a] text-[#a1a79d] hover:text-[#9be12f] border border-white/[0.08] transition-colors flex items-center gap-2 text-xs font-medium">
+        <i data-lucide="arrow-up" class="w-4 h-4"></i>
+        <span data-i18n="footer.top">Back to top</span>
+      </a>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
